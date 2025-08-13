@@ -41,12 +41,11 @@ public class CinemaService {
     public List<CinemaGenreDto> findByWhere() {
         return this.cinemaMybatisMapper.findByWhere();
     }
-
-    public void update(CinemaDto dto) {
-        this.cinemaMybatisMapper.update(dto);
+    public void updateCinema(CinemaDto dto) {
+        this.cinemaMybatisMapper.updateCinema(dto);
     }
 
-    public void delete(Long id) {
-        this.cinemaMybatisMapper.delete(id);
+    public void deleteCinema(Long id) {
+        this.cinemaMybatisMapper.deleteCinema(id);
     }
 }

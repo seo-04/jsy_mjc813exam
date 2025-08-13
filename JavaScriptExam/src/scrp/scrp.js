@@ -104,142 +104,31 @@
 // 평균점수 - 공백으로 구분하여 세 과목의 점수가 주어지면 전체 평균 점수를 구하는 자바스크립트 프로그램으로
 // 작성 단, 소숫점 자리는 모두 버린다.(class 형식으로 만들어줘)
 // 18번
-// class ScoreCalculator {
-//     constructor() {
-//         this.scores = [];
-//     }
-//
-//     inputScores() {
-//         for (let i = 0; i < 3; i++) {
-//             const score = parseInt(prompt(`${i + 1}번째 과목 점수를 입력하세요:`), 10);
-//             if (isNaN(score)) {
-//                 console.log("숫자를 입력해주세요.");
-//                 i--;
-//             } else {
-//                 this.scores.push(score);
-//             }
-//         }
-//         const total = this.scores.reduce((sum, score) => sum + score, 0);
-//         return Math.floor(total / this.scores.length);
-//     }
-//
-// }
-// const answerScores = new answerScores();
-// answerScores.inputScores(); //해결 못함
+class ScoreCalculator {
+    constructor() {
+        this.scores = [];
+    }
 
-// 19번
-// 공백으로 구분하여 두 숫자 a와 b 가 주어지면, a의 b승을 구한느 프로그램을 작성해라
-// const mth = prompt('a와 b승의 숫자를 입력해주세요.(공백 없이)').split('');
-// let result = mth[0] ** mth[1];
-// console.log(result);
+    inputScores() {
+        for (let i = 0; i < 3; i++) {
+            const score = parseInt(prompt(`${i + 1}번째 과목 점수를 입력하세요:`), 10);
+            if (isNaN(score)) {
+                console.log("숫자를 입력해주세요.");
+                i--;
+            } else {
+                this.scores.push(score);
+            }
+        }
+        const total = this.scores.reduce((sum, score) => sum + score, 0);
+        return Math.floor(total / this.scores.length);
+    }
 
-// 26번
-// 행성의 수성, 금성, 지구, 화성, 목성, 토성, 천왕성, 해왕성의 영어 이름 Mercury, Venus, Earth, Mars, Jupiter,
-// Saturn, Uranus, Neptune 이 있는데 한글을 입력하면 영어 이름을 반환하는 프로그램을 만들자. 클래스 한개 생성
-
-// const Plants = {
-//     '수성': Mercury,
-//     '금성': Venus,
-//     '지구': Earth,
-//     '화성': Mars,
-//     '목성': Jupiter,
-//     '토성': Saturn,
-//     '천왕성': Uranus,
-//     '해왕성': Neptune,
-// };
-//
-// const Pname = prompt('행성 이름을 출력해주세요:');
-// console.log(Plants[Pname]);
-
-// class Exam27 {
-//     maps = new Map();
-//
-//     inputFunc() {
-//         let names = prompt("이름을 공백으로 구분하여 입력하세요.");
-//         let score = prompt("점수를 공백으로 구분하여 입력하세요.");
-//         let arrName = names.split(" ");
-//         let arrScore = score.split(" ");
-//
-//         if (arrName.length !== arrScore.length) {
-//             alert("두 배열의 길이가 다릅니다. 다시 시작하세요.");
-//             return false; // 함수가 false 를 리턴한다.
-//         }
-//         for (let i = 0; i < arrName.length; i++) {
-//             this.maps.set(arrName[i], Number(arrScore[i]));
-//         }
-//
-//         console.log(this.maps);
-//         return true;  // 함수가 true 를 리턴한다.
-//     }
-//
-//     outputFunc() {
-//         let strOutput = "{";
-//         for (let [name, score] of this.maps) {
-//             strOutput += `'${name}': ${score}, `;
-//         }
-//         strOutput = strOutput.substring(0 , strOutput.length - 2);
-//         // 문자열의 길이에서 -2 시킨 길이의 문자열로 다시 저장. "abcd" => "ab"
-//         strOutput += "}";
-//         console.log(strOutput);
-//     }
-// }
-//
-// let exam = new Exam27();
-// if (exam.inputFunc()) {  // inputFunc() 를 실행하고 리턴값이 true 이면
-//     exam.outputFunc(); // outputFunc() 를 실행한다.
-// }
+}
+const answerScores = new answerScores();
+answerScores.inputScores(); //해결 못함
 
 
-// class Exam28 {
-//     strInput = "";
-//
-//     constructor(str) {
-//         this.strInput = str;
-//     }
-//     output() {
-//
-//         for (let i = 0; i < this.strInput.length; i += 2) {
-//             console.log(this.strInput.substr(i, 2));
-//         }
-//     }
-// }
-// let exam28 = new Exam28(prompt("문자 입력하세요."));
-// exam28.output();
 
-// class Exam37 {
-//     arrItem = [];
-//     maps = new Map();
-//
-//     constructor(input) {
-//         this.arrItem = input.split(" ");
-//     }
-//
-//     checkVotes() {
-//         for (let name of this.arrItem) {
-//             if (this.maps.has(name)) {
-//                 this.maps.set(name, this.maps.get(name) + 1);
-//             } else {
-//                 this.maps.set(name, 1);
-//             }
-//         }
-//         let maxName = "";
-//         let maxCount = 0;
-//
-//         for (let [name, count] of this.maps.entries()) {
-//             if (count > maxCount) {
-//                 maxCount = count;
-//                 maxName = name;
-//
-//             }
-//         }
-//
-//         return [maxName, maxCount];
-//     }
-// }
-//
-// let exam37 = new Exam37(prompt("투표할 항목을 공백으로 구분해서 입력하세요."));
-// let result = exam37.checkVotes();
-// console.log(`투표 결과 ${result[0]}가 ${result[1]}표로 반장이 되었습니다.`);
 
 
 

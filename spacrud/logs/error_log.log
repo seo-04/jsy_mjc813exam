@@ -1,6 +1,0 @@
-ERROR 25-07-25 11:52:07[http-nio-8087-exec-6] [MemberRestController:26] - org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
-### The error may exist in file [C:\github\mjc813exam\spacrud\target\classes\mapper\member_mysql_mybais.xml]
-### The error may involve com.mjc813.spacrud.member.IMemberMybatis.findAll
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
