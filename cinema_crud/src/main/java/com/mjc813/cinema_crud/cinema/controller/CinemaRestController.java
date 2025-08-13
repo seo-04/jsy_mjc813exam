@@ -86,31 +86,31 @@ public class CinemaRestController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ResponseDto> updateCinema(@RequestBody CinemaDto dto) {
+    public ResponseEntity<ResponseDto> update(@RequestBody CinemaDto dto) {
         try {
-            this.cinemaService.updateCinema(dto);
+            this.cinemaService.update(dto);
             return ResponseEntity.ok().body(
-                    new ResponseDto("updated", 50020, dto)
+                    new ResponseDto("success", 40090, dto)
             );
         } catch (Throwable e) {
             log.error(e.toString());
             return ResponseEntity.ok().body(
-                    new ResponseDto("update error", 90001, dto)
+                    new ResponseDto("update error", 90000, null)
             );
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto> deleteCinema(@PathVariable Long id) {
+    public ResponseEntity<ResponseDto> delete(@PathVariable Long id) {
         try {
-            this.cinemaService.deleteCinema(id);
+            this.cinemaService.delete(id);
             return ResponseEntity.ok().body(
-                    new ResponseDto("deleted", 50030, id)
+                    new ResponseDto("success", 40030, true)
             );
         } catch (Throwable e) {
             log.error(e.toString());
             return ResponseEntity.ok().body(
-                    new ResponseDto("delete error", 90002, id)
+                    new ResponseDto("delete error", 90000, null)
             );
         }
     }

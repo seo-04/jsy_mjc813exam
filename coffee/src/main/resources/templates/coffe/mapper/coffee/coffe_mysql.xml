@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper">
+
+    <insert id="insertCoffee" parameterType="com.mjc813.coffee.dto.coffeeDto">
+        INSERT INTO coffee_tbl (
+            name,
+            price,
+            source,
+            shots
+        ) VALUES (
+                     #{name},
+                     #{price},
+                     #{source},
+                     #{shots}
+                 )
+    </insert>
+
+
+    <select id="findAll" resultType="com.mjc813.coffee.dto.coffeeDto">
+        SELECT
+            id,
+            name,
+            price,
+            source,
+            shots
+        FROM coffee_tbl
+        ORDER BY id
+    </select>
+
+
+    <select id="findById" parameterType="int" resultType="com.mjc813.coffee.dto.coffeeDto">
+        SELECT
+            id,
+            name,
+            price,
+            source,
+            shots
+        FROM coffee_tbl
+        WHERE id = #{id}
+    </select>
+
+</mapper>

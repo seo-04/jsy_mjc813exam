@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>재료 카테고리 관리</title>
+    {{> ./include/css}}
+</head>
+<body>
+{{> ./include/topmenu}}
+
+<div class="container">
+    <div class="page-header mt-4">
+        <h1>재료 카테고리 관리</h1>
+    </div>
+
+    <div class="d-flex justify-content-between my-3">
+        <div class="input-group w-50">
+            <input id="searchText" type="text" class="form-control" placeholder="카테고리명 검색">
+            <button id="searchButton" class="btn btn-outline-primary" type="button">검색</button>
+        </div>
+        <button id="showAddModalButton" class="btn btn-primary">+ 추가</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID <span class="sortButton" data-sort="id,asc">▲</span><span class="sortButton" data-sort="id,desc">▼</span></th>
+            <th>카테고리명 <span class="sortButton" data-sort="name,asc">▲</span><span class="sortButton" data-sort="name,desc">▼</span></th>
+        </tr>
+        </thead>
+        <tbody id="listBody"></tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination" id="paginationUL"></ul>
+    </nav>
+</div>
+
+<!-- 모달 -->
+<div class="modal" tabindex="-1" id="categoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modal_title" class="modal-title">카테고리 등록</h5>
+                <button type="button" class="btn-close" id="modalClose"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="id">
+                <div class="mb-3">
+                    <label for="name" class="form-label">카테고리명</label>
+                    <input type="text" class="form-control" id="name" maxlength="50" placeholder="카테고리명 입력">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveButton" class="btn btn-primary">저장</button>
+                <button id="deleteButton" class="btn btn-danger">삭제</button>
+                <button class="btn btn-secondary" id="modalCancel">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> ./include/footer}}
+
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script>
+    let modalMode = 1;
+    let sortString = "id,desc";
+    let curPage = 1;
+    const apiUrl = '/api/v1/ingredient_category';
+
+    $(function(){
+        loadData(getPageable());
+
+        $("#searchButton").click(() => loadData(getPageable()));
+        $(".sortButton").click(function(){
+            sortString = $(this).data("sort");
+            loadData(getPageable());
+        });
+
+        $("#showAddModalButton").click(() => showModal(1));
+        $("#modalCancel, #modalClose").click(() => hideModal());
+
+        $("#saveButton").click(() => modalMode === 1 ? insertCategory() : updateCategory());
+        $("#deleteButton").click(() => deleteCategory());
+    });
+
+    function getPageable() {
+        return {
+            name: $("#searchText").val(),
+            page: curPage - 1,
+            size: 10,
+            sort: sortString
+        };
+    }
+
+    function loadData(p) {
+        $.get(apiUrl, p).done(res => {
+            renderList(res.result);
+        }).fail(() => {
+            alert("데이터 로드 실패");
+        });
+    }
+
+    function renderList(list) {
+        $("#listBody").empty();
+        list.forEach(item => {
+            $("#listBody").append(`
+                <tr data-id="${item.id}" class="category-row">
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                </tr>
+            `);
+        });
+
+        $(".category-row").click(function(){
+            const id = $(this).data("id");
+            $(".action-row").remove();
+            $(this).after(`
+                <tr class="action-row">
+                    <td colspan="2" class="text-center">
+                        <button class="btn btn-sm btn-warning me-2 edit-btn">수정</button>
+                        <button class="btn btn-sm btn-danger delete-btn">삭제</button>
+                    </td>
+                </tr>
+            `);
+
+
+            $(".edit-btn").click(() => {
+                showInfo(id);
+            });
+
+
+            $(".delete-btn").click(() => {
+                $("#id").val(id);
+                deleteCategory();
+            });
+        });
+    }
+
+    function insertCategory() {
+        $.ajax({
+            url: apiUrl,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ name: $("#name").val() })
+        }).done(() => {
+            hideModal();
+            loadData(getPageable());
+        }).fail(() => {
+            alert("등록 실패");
+        });
+    }
+
+    function updateCategory() {
+        $.ajax({
+            url: `${apiUrl}/${$("#id").val()}`,
+            type: "PATCH",
+            contentType: "application/json",
+            data: JSON.stringify({
+                id: $("#id").val(),
+                name: $("#name").val()
+            })
+        }).done(() => {
+            hideModal();
+            loadData(getPageable());
+        }).fail(() => {
+            alert("수정 실패");
+        });
+    }
+
+    function deleteCategory() {
+        if(!confirm("삭제하시겠습니까?")) return;
+        $.ajax({
+            url: `${apiUrl}/${$("#id").val()}`,
+            type: "DELETE"
+        }).done(() => {
+            hideModal();
+            loadData(getPageable());
+        }).fail(() => {
+            alert("삭제 실패");
+        });
+    }
+
+    function showInfo(id) {
+        $.get(`${apiUrl}/${id}`).done(res => {
+            $("#id").val(res.data.id);
+            $("#name").val(res.data.name);
+            showModal(2);
+        }).fail(() => {
+            alert("데이터 불러오기 실패");
+        });
+    }
+
+    function showModal(mode) {
+        modalMode = mode;
+        $("#modal_title").text(mode === 1 ? "카테고리 등록" : "카테고리 수정");
+        $("#categoryModal").show();
+        if (mode === 1) {
+            $("#id").val("");
+            $("#name").val("");
+            $("#deleteButton").hide();
+        } else {
+            $("#deleteButton").show();
+        }
+    }
+
+    function hideModal() {
+        $("#categoryModal").hide();
+    }
+</script>
+</body>
+</html>
