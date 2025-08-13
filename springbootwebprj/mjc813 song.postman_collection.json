@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "0558b091-f422-4965-9718-77a7131e2b26",
+		"name": "mjc813 song",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16448427"
+	},
+	"item": [
+		{
+			"name": "genre",
+			"item": [
+				{
+					"name": "genre insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"헤비메탈\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8989/genre",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"genre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "genre update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"뽕짝\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8989/genre/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"genre",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "genre delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/genre/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"genre",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "genre findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/genre/2222",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"genre",
+								"2222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "genre findByNameContrains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/genre?name=&page=1&size=2&sort=id,desc",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"genre"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "id,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "song",
+			"item": [
+				{
+					"name": "song insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Icarus Dream Suite OP V\"\r\n    , \"genre\": {\r\n        \"id\": 2\r\n    }\r\n    , \"composer\": \"무명\"\r\n    , \"artist\": \"Ignwei Malmsteen\"\r\n    , \"releaseDate\": \"1990-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8989/song",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"song"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "song update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Icarus Dream Suite OP V\"\r\n    , \"genre\": {\r\n        \"id\": 2\r\n    }\r\n    , \"composer\": \"무명\"\r\n    , \"artist\": \"Ignwei Malmsteen\"\r\n    , \"releaseDate\": \"1990-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8989/song/id",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"song",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "song delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/song/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"song",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "song findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/song/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"song",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "song findByTitleContainsAndArtiveContains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8989/song?name=&page=1&size=2&sort=id,desc",
+							"host": [
+								"localhost"
+							],
+							"port": "8989",
+							"path": [
+								"song"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "id,desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
